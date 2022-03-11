@@ -1,0 +1,33 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    background-color: #f2f2f2;
+    font-family: 'Courier New', 'Courier', monospace;
+	font-size: 10px;
+	line-height: 10px;
+	letter-spacing: -1.5px;
+	text-align: center;
+
+}
+
+#video-div{
+    position: absolute;
+    width: 50%;
+    height: 70%;
+    left: 25%;
+    top: 10%;
+    color: white;
+    border-radius: 20px;
+    z-index: 1;
+}
+
+canvas {
+    position: absolute;
+    left: 12.5%;
+    top: 0;    
+    z-index: -1;
+}
+
+#filterParam{
+    display: none;
+}

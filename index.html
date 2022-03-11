@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="video-div"></div>
+
+
+    <select onchange="changeFilter(this.value)" id="filters">
+        <option value="ascii">Ascii</option>
+        <option value="threshold">THRESHOLD</option>
+        <option value="gray">GRAY</option>
+        <option value="invert">INVERT</option>
+        <option value="posterize">POSTERIZE</option>
+
+
+    </select>
+    <input onchange="changeFilterParam()" type="number" id="filterParam" min="2" value="2" max="10">
+
+
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.1/p5.min.js"
+        integrity="sha512-NxocnqsXP3zm0Xb42zqVMvjQIktKEpTIbCXXyhBPxqGZHqhcOXHs4pXI/GoZ8lE+2NJONRifuBpi9DxC58L0Lw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="/js/canvas.js"></script>
+    <script src="/js/script.js"></script>
+
+</body>
+
+</html>
