@@ -21,6 +21,7 @@ function setup() {
     let cnv = createCanvas(windowWidth / 2.665, windowHeight / 1.62 + 25)
 
     video = createCapture(VIDEO);
+
     video.size(windowWidth / 12, windowHeight / 16); // windowWidth / x
 
     asciiDiv = createDiv();
@@ -40,6 +41,10 @@ function setup() {
     asciiWidth = video.width / 2
 
     filteredCanvas = createGraphics(windowWidth / 2.665 / 2, windowHeight / 1.62)
+
+    video.elt.setAttribute('playsinline', '');
+    shownVideo.elt.setAttribute('playsinline', '');
+
 
 }
 
