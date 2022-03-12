@@ -1,3 +1,7 @@
+const videoDiv = document.getElementById("video-div")
+const controls = document.querySelector(".controls")
+const warning = document.querySelector("h1")
+
 const density = " .,-+:;i1tfLCGO08#@";
 
 // const density = '       .:-i|=+%O#@'
@@ -15,7 +19,7 @@ let filterMode = "ascii";
 let filterParam = 2;
 
 let filteredCanvas;
-
+let camControl;
 
 function setup() {
     let cnv = createCanvas(windowWidth / 2.665, windowHeight / 1.62 + 25)
@@ -51,9 +55,22 @@ function setup() {
 function draw() {
 
     video.loadPixels();
+
+    if (video.pixels[0] <= 0) {
+        videoDiv.style.display = "none"
+        controls.style.display = "none"
+        warning.style.display = "block"
+    } else {
+        videoDiv.style.display = "initial"
+        controls.style.display = "initial"
+        warning.style.display = "none"
+
+    }
+
+
     background(242)
-    circle(asciiWidth * 4.5, height - 12, 20)
     image(shownVideo, 0, 0, width, height - 25);
+    circle(asciiWidth * 4.5, height - 12, 20)
 
     if (filterMode != "ascii") {
         drawFilteredCanvas()

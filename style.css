@@ -15,7 +15,7 @@ html, body {
     width: 50%;
     height: 70%;
     left: 25%;
-    top: 10%;
+    top: 15%;
     color: white;
     border-radius: 20px;
     z-index: 1;
@@ -28,6 +28,127 @@ canvas {
     z-index: -1;
 }
 
+.rangeSlider{
+    position: relative;
+    left: 10px;
+    visibility: hidden;
+
+}
+
 #filterParam{
+    position: relative;
+    width: 100%;
+    height: 2px;
+    -webkit-appearance: none;
+    outline: none;
+    border-radius: 2px;
+    background: #111;
+
+}
+
+#filterParam::-webkit-slider-thumb{
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #00bcd4;
+}
+
+#rangeValue{
+    position: absolute;
+    right: -20px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size:medium;
+}
+
+#rangeValue::before{
+    content: '';
+    top: 50%;
+    transform: translateY(-50%) rotate(45deg);
+    left: -5px;
+    width: 10px;
+    height: 10px;
+    background: white;
+}
+
+.dropdown{
+    position: relative;
+    width: 100%;
+    height: 50%;
+    margin-bottom: 10%;
+}
+
+.controls{
+    position: absolute;
+    width: 200px;
+    height: 10%;
+    left: calc(50% - 100px);
+    top: 3%;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.dropdown input{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60%;
+    cursor: pointer;
+    background-color: white;
+    border: none;
+    outline: none;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    padding: 12px 20px;
+    border-radius: 10px;
+}
+
+.dropdown .option{
+    position: absolute;
+    top: 60px;
+    width: 100%;
+    left: 20px;
+    background-color: white;
+    box-shadow: 0 30px 30px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
     display: none;
+    font-size: large;
+    border-radius: 10px;
+    z-index: 99;
+}
+
+.dropdown.active .option{
+    display: block;
+}
+
+
+.dropdown .option div{
+    padding: 12px 20px;
+    cursor: pointer;
+}
+
+.dropdown .option div:hover{
+    background-color: lightgray;
+}
+
+.dropdown::before{
+    content: '';
+    position: absolute;
+    right: -12px;
+    top: 15px;
+    z-index: 99;
+    width: 8px;
+    height: 8px;
+    border: 2px solid #333;
+    border-top: 2px solid white;
+    border-right: 2px solid white;
+    transform: rotate(-45deg);
+    transition: 0.5s;
+    pointer-events: none;
+}
+
+.dropdown.active::before{
+    top: 25px;
+    transform: rotate(-225deg);
 }
