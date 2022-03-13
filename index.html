@@ -15,26 +15,49 @@
     <h1>Please allow access to your webcam</h1>
 
     <div class="controls">
-        <div class="dropdown">
-            <input type="text" class="textBox" value="ASCII" readonly>
-            <div class="option">
-                <div onclick="changeFilter('ascii')">Ascii</div>
-                <div onclick="changeFilter('threshold')">THRESHOLD</div>
-                <div onclick="changeFilter('gray')">GRAY</div>
-                <div onclick="changeFilter('invert')">INVERT</div>
-                <div onclick="changeFilter('posterize')">POSTERIZE</div>
+        <div class="controlDiv">
+            <div class="dropdown" id="dropdown">
+                <input type="text" class="textBox" id="textBox" value="ASCII" readonly>
+                <div class="option">
+                    <div onclick="changeFilter('ascii')">Ascii</div>
+                    <div onclick="changeFilter('threshold')">THRESHOLD</div>
+                    <div onclick="changeFilter('gray')">GRAY</div>
+                    <div onclick="changeFilter('invert')">INVERT</div>
+                    <div onclick="changeFilter('posterize')">POSTERIZE</div>
+
+                </div>
 
             </div>
+            <div class="rangeSlider" id="rangeSlider">
+                <span id="rangeValue" class="rangeValue">2</span>
+                <input onchange="changeFilterParam()" onmousemove="changeFilterParam()" type="range" class="filterParam"
+                    id="filterParam" min="2" value="2" max="10">
 
+            </div>
         </div>
-        <div class="rangeSlider">
-            <span id="rangeValue">2</span>
-            <input onchange="changeFilterParam()" onmousemove="changeFilterParam()" type="range" id="filterParam"
-                min="2" value="2" max="10">
 
+        <div class="controlDiv">
+            <div class="dropdown" id="dropdown1">
+                <input type="text" class="textBox" id="textBox1" value="NONE" readonly>
+                <div class="option">
+                    <div onclick="changeDefaultCamFilter('none')">NONE</div>
+                    <div onclick="changeDefaultCamFilter('threshold')">THRESHOLD</div>
+                    <div onclick="changeDefaultCamFilter('gray')">GRAY</div>
+                    <div onclick="changeDefaultCamFilter('invert')">INVERT</div>
+                    <div onclick="changeDefaultCamFilter('posterize')">POSTERIZE</div>
+
+                </div>
+
+            </div>
+            <div class="rangeSlider" id="rangeSlider1">
+                <span id="rangeValue1" class="rangeValue">2</span>
+                <input onchange="changeFilterParam()" onmousemove="changeFilterParam()" type="range" class="filterParam"
+                    id="filterParam1" min="2" value="2" max="10">
+
+            </div>
         </div>
-
     </div>
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.1/p5.min.js"
         integrity="sha512-NxocnqsXP3zm0Xb42zqVMvjQIktKEpTIbCXXyhBPxqGZHqhcOXHs4pXI/GoZ8lE+2NJONRifuBpi9DxC58L0Lw=="
