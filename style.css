@@ -173,8 +173,22 @@ canvas {
         left: 5%
     }
 
+   
+
          
 
+    
+}
+
+@media screen and (max-width: 600px) {
+    .dropdown .option{
+        width: 150%;
+    }
+    
+    .dropdown input{
+        font-size: inherit;
+    }
+  
     
 }
 
@@ -188,6 +202,16 @@ canvas {
         left: 0
     }
 
+    .dropdown .option{
+        width: 200%
+    }
+
+    .dropdown{
+        width: 110%;
+        margin-bottom: 50%;
+    }
+
+    
          
 
     

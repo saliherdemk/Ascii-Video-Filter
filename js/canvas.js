@@ -29,9 +29,9 @@ function setup() {
     video = createCapture(VIDEO);
 
     if (windowWidth < 400) {
-        cnv = createCanvas(windowWidth / 1.3325, windowHeight / 1.62 + 30)
-        video.size(windowWidth / 6, windowHeight / 15.8); // windowWidth / x 
-        filteredCanvas = createGraphics(windowWidth / 1.3325 / 2, windowHeight / 1.62 + 5)
+        cnv = createCanvas(windowWidth / 1.3325, windowHeight / 1.5 + 30)
+        video.size(windowWidth / 6, windowHeight / 14.5); // windowWidth / x 
+        filteredCanvas = createGraphics(windowWidth / 1.3325 / 2, windowHeight / 1.5 + 5)
 
     } else if (windowWidth < 1000) {
         cnv = createCanvas(windowWidth / 1.3325, windowHeight / 1.62 + 30)
@@ -72,6 +72,8 @@ function setup() {
 }
 
 function draw() {
+    background(242)
+    filteredCanvas.background(242)
 
     video.loadPixels();
 
@@ -87,9 +89,8 @@ function draw() {
     }
 
 
-    background(242)
+
     image(shownVideo, 0, 0, width, height - 25);
-    circle(asciiWidth * 4.5, height - 12, 20)
 
     if (filterMode != "ascii") {
         drawFilteredCanvas()
@@ -114,6 +115,7 @@ function draw() {
         asciiDiv.html(asciiImage);
     }
 
+
     changeCanvasWidth()
     if (camFilter != "none") {
         switch (camFilter) {
@@ -133,6 +135,8 @@ function draw() {
                 break;
         }
     }
+    circle(asciiWidth * 4.5, height - 12, 20)
+
 }
 
 
@@ -152,7 +156,9 @@ function changeCanvasWidth() {
         asciiWidth = newWidth
 
         //https://stackoverflow.com/questions/47363844/how-do-i-resize-a-p5-graphic-object#:~:text=If%20you%20want%20to%20resize,one%20to%20the%20new%20one.&text=after%20inspecting%20elements%2C%20createGraphics(),just%20set%20to%20be%20invisible.
-        var newPG = createGraphics(asciiWidth * 4.5, windowHeight / 1.62 + 5);
+
+
+        var newPG = createGraphics(asciiWidth * 4.5, windowHeight / 1.5 + 5);
         newPG.image(filteredCanvas, 0, 0, newPG.width, newPG.height);
         filteredCanvas.canvas.remove()
         filteredCanvas = newPG;
@@ -164,7 +170,6 @@ function changeCanvasWidth() {
 
 
 function drawFilteredCanvas() {
-    filteredCanvas.background(255)
     filteredCanvas.image(shownVideo, 0, 0, width, height - 25)
 
     if (filterMode != "ascii") {
