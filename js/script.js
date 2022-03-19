@@ -42,6 +42,7 @@ function changeFilter(val) {
 
 }
 
+
 function changeDefaultCamFilter(val) {
     textbox1.value = val.toUpperCase()
     camFilter = val

@@ -1,12 +1,17 @@
 const videoDiv = document.getElementById("video-div")
 const controls = document.querySelector(".controls")
 const warning = document.querySelector("h1")
+const filteredCanvasSlider =  document.getElementById("filteredCanvasSlider") //.setAttribute("max", 42);
+
 
 const density = " .,-+:;i1tfLCGO08#@";
 
 // const density = '       .:-i|=+%O#@'
 
 // const density = ' ░▒▓█';
+
+var videoDivWidth = videoDiv.offsetWidth
+var videoDivHeight = videoDiv.offsetHeight
 
 let cnv;
 let video;
@@ -25,48 +30,44 @@ let camFilterParam = 2;
 let filteredCanvas;
 let camControl;
 
+let filteredCanvasSliderValue;
+
+
 function setup() {
+
+    
     video = createCapture(VIDEO);
 
-    if (windowWidth < 400) {
-        cnv = createCanvas(windowWidth / 1.3325, windowHeight / 1.5 + 30)
-        video.size(windowWidth / 6, windowHeight / 14.5); // windowWidth / x 
-        filteredCanvas = createGraphics(windowWidth / 1.3325 / 2, windowHeight / 1.5 + 5)
+    cnv = createCanvas(videoDivWidth,videoDivHeight - videoDivHeight / 10) //windowWidth / 2.665, windowHeight / 1.62 + 30
+    video.size(videoDivWidth / 4.5, videoDivHeight / 11); // windowWidth / x 
+    filteredCanvas = createGraphics(videoDivWidth / 2, videoDivHeight - videoDivHeight / 10)
 
-    } else if (windowWidth < 1000) {
-        cnv = createCanvas(windowWidth / 1.3325, windowHeight / 1.62 + 30)
-        video.size(windowWidth / 6, windowHeight / 16); // windowWidth / x 
-        filteredCanvas = createGraphics(windowWidth / 1.3325 / 2, windowHeight / 1.62 + 5)
-    }
-    else {
-        cnv = createCanvas(windowWidth / 2.665, windowHeight / 1.62 + 30)
-        video.size(windowWidth / 12, windowHeight / 16); // windowWidth / x 
-        filteredCanvas = createGraphics(windowWidth / 2.665 / 2, windowHeight / 1.62 + 5)
+    filteredCanvasSlider.setAttribute("max",videoDivWidth)
+    filteredCanvasSlider.setAttribute("value",videoDivWidth / 2)
 
-    }
 
 
     //video.size(width / 4.5, height / 10.34)
 
     asciiDiv = createDiv();
-    asciiDiv.parent('video-div')
-    asciiDiv.style("display", "flex")
+    asciiDiv.parent('videos-container')
     asciiDiv.style("position", "absolute")
-    asciiDiv.style("left", "12.5%")
     asciiDiv.style("background-color", "black") //transparent
+    asciiDiv.style("z-index","2")
+
 
     shownVideo = createCapture(VIDEO);
-    shownVideo.size(asciiDiv.width, asciiDiv.height)
+    shownVideo.size(width, height)
 
     video.hide()
     shownVideo.hide()
-    cnv.parent('video-div')
+    cnv.parent('videos-container')
 
     asciiWidth = video.width / 2
 
 
-    video.elt.setAttribute('playsinline', '');
-    shownVideo.elt.setAttribute('playsinline', '');
+    // video.elt.setAttribute('playsinline', '');
+    // shownVideo.elt.setAttribute('playsinline', '');
 
 
 }
@@ -90,7 +91,7 @@ function draw() {
 
 
 
-    image(shownVideo, 0, 0, width, height - 25);
+    image(shownVideo, 0, 0, width, height);
 
     if (filterMode != "ascii") {
         drawFilteredCanvas()
@@ -113,10 +114,10 @@ function draw() {
             asciiImage += '<br/>';
         }
         asciiDiv.html(asciiImage);
+        
     }
 
 
-    changeCanvasWidth()
     if (camFilter != "none") {
         switch (camFilter) {
             case "threshold":
@@ -135,42 +136,17 @@ function draw() {
                 break;
         }
     }
-    circle(asciiWidth * 4.5, height - 12, 20)
 
 }
 
-
-
-function changeCanvasWidth() {
-
-    if (dragging) {
-        let newWidth = floor(map(mouseX, 0, width, 0, video.width))
-        if (newWidth > width / 4.5) {
-            asciiWidth = width / 4.5 - 1;
-            return
-        }
-        if (newWidth <= 0) {
-            asciiWidth = 0;
-            return
-        }
-        asciiWidth = newWidth
-
-        //https://stackoverflow.com/questions/47363844/how-do-i-resize-a-p5-graphic-object#:~:text=If%20you%20want%20to%20resize,one%20to%20the%20new%20one.&text=after%20inspecting%20elements%2C%20createGraphics(),just%20set%20to%20be%20invisible.
-
-
-        var newPG = createGraphics(asciiWidth * 4.5, windowHeight / 1.5 + 5);
-        newPG.image(filteredCanvas, 0, 0, newPG.width, newPG.height);
-        filteredCanvas.canvas.remove()
-        filteredCanvas = newPG;
-
-    }
-
+function windowResize(){
+    videoDivHeight = videoDiv.offsetHeight
 }
 
 
 
 function drawFilteredCanvas() {
-    filteredCanvas.image(shownVideo, 0, 0, width, height - 25)
+    filteredCanvas.image(shownVideo, 0, 0, width, height)
 
     if (filterMode != "ascii") {
         switch (filterMode) {
@@ -202,14 +178,39 @@ function dist(x1, y1, x2, y2) {
 }
 
 function mousePressed() {
-    let d = dist(mouseX, mouseY, asciiWidth * 4.5, height - 10);
-
-    if (d < 10) {
-        dragging = true
-    }
+    
+    dragging = true
 
 }
 
 function mouseReleased() {
     dragging = false
+}
+
+
+function handleCanvasWValue(type="natural"){
+    if(dragging || type == "force"){
+        let newWidth = floor(map(mouseX, 0, videoDivWidth, 0, video.width))
+
+        if(newWidth <= 0){
+            console.log(newWidth)
+            // remove filteredCanvas
+            return
+        }
+        if(newWidth > videoDivWidth){
+            asciiWidth = videoDivWidth
+            return
+        }
+            
+        asciiWidth = newWidth
+    
+        //https://stackoverflow.com/questions/47363844/how-do-i-resize-a-p5-graphic-object#:~:text=If%20you%20want%20to%20resize,one%20to%20the%20new%20one.&text=after%20inspecting%20elements%2C%20createGraphics(),just%20set%20to%20be%20invisible.
+    
+    
+        var newPG = createGraphics(asciiWidth * 4.5, videoDivHeight - videoDivHeight / 10);
+        newPG.image(filteredCanvas, 0, 0, newPG.width, newPG.height);
+        filteredCanvas.canvas.remove()
+        filteredCanvas = newPG;    
+    }
+    
 }
