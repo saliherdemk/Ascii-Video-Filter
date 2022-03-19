@@ -38,9 +38,9 @@ function setup() {
     
     video = createCapture(VIDEO);
 
-    cnv = createCanvas(videoDivWidth,videoDivHeight - videoDivHeight / 10) //windowWidth / 2.665, windowHeight / 1.62 + 30
-    video.size(videoDivWidth / 4.5, videoDivHeight / 11); // windowWidth / x 
-    filteredCanvas = createGraphics(videoDivWidth / 2, videoDivHeight - videoDivHeight / 10)
+    cnv = createCanvas(videoDivWidth,videoDivHeight - videoDivHeight / 5) //windowWidth / 2.665, windowHeight / 1.62 + 30
+    video.size(videoDivWidth / 4.5, videoDivHeight / 12.5); // windowWidth / x 
+    filteredCanvas = createGraphics(videoDivWidth / 2, videoDivHeight - videoDivHeight / 5)
 
     filteredCanvasSlider.setAttribute("max",videoDivWidth)
     filteredCanvasSlider.setAttribute("value",videoDivWidth / 2)
@@ -78,13 +78,11 @@ function draw() {
 
     video.loadPixels();
 
-    if (video.pixels[0] <= 0) {
-        videoDiv.style.display = "none"
-        controls.style.display = "none"
+    if (video.pixels[1] <= 0) {
+        videoDiv.style.visibility = "hidden"
         warning.style.display = "block"
     } else {
-        videoDiv.style.display = "initial"
-        controls.style.display = "flex"
+        videoDiv.style.visibility = "visible"
         warning.style.display = "none"
 
     }
@@ -207,7 +205,7 @@ function handleCanvasWValue(type="natural"){
         //https://stackoverflow.com/questions/47363844/how-do-i-resize-a-p5-graphic-object#:~:text=If%20you%20want%20to%20resize,one%20to%20the%20new%20one.&text=after%20inspecting%20elements%2C%20createGraphics(),just%20set%20to%20be%20invisible.
     
     
-        var newPG = createGraphics(asciiWidth * 4.5, videoDivHeight - videoDivHeight / 10);
+        var newPG = createGraphics(asciiWidth * 4.5, videoDivHeight - videoDivHeight / 5);
         newPG.image(filteredCanvas, 0, 0, newPG.width, newPG.height);
         filteredCanvas.canvas.remove()
         filteredCanvas = newPG;    
