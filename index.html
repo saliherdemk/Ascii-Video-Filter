@@ -10,12 +10,20 @@
 </head>
 
 <body>
+    <a href="https://github.com/saliherdemk/Ascii-Video-Filter" target="_blank">
+        <img src="./media/githubLogo.png" alt="">
+
+    </a>
     <div class="container">
 
         <h1>Please allow access to your webcam</h1>
     
         <div id="video-div">
             <div class="controls">
+            <button id="copyText" onclick="copyArt()">
+                <span class="copyAlert">Copy</span>
+            </button>
+
                 <div class="controlDiv">
                     <div class="dropdown" id="dropdown">
                         <input type="text" class="textBox" id="textBox" value="ASCII" readonly>
@@ -35,6 +43,7 @@
                             id="filterParam" min="2" value="2" max="10">
         
                     </div>
+
                 </div>
         
                 <div class="controlDiv">

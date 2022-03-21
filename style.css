@@ -6,7 +6,13 @@ html, body {
 	font-size: 0.79em;
 	letter-spacing: -1.5px;
     line-height: 1;
+    white-space: nowrap;
     
+}
+
+img{
+    position: absolute;
+    right: 0;
 }
 
 .container{
@@ -40,14 +46,18 @@ h1{
 #video-div .controls{
     position: relative;
     width: 100%;
-    height: 10%;
+    height: 15%;
     display: flex;
     justify-content: space-around;
     flex-direction: row;
+
 }
 
 #video-div .controls .controlDiv{
     position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
 }
 
 .dropdown{
@@ -72,8 +82,8 @@ h1{
 }
 
 .dropdown .option{
-    position: relative;
-    top: 10px;
+    position: absolute;
+    top: 130%;
     width: 100%;
     background-color: white;
     box-shadow: 0 30px 30px rgba(0, 0, 0, 0.05);
@@ -123,7 +133,6 @@ h1{
 
 .rangeSlider, #changeCnvFilter{
     position: relative;
-    left: 25%;
     visibility: hidden;
 
 }
@@ -147,11 +156,33 @@ h1{
     background-color: #00bcd4;
 }
 
+#copyText{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    border: none;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background-color: #555;
+    color: white;
+    padding: 1% 3%;
+    font-family: 'Courier New', 'Courier', monospace;
+    font-size: medium;
+    z-index: 4;
+
+
+}
+
+.copyAlert{
+    position: relative;
+}
+
 .rangeValue{
     position: absolute;
     right: -20px;
     font-family: Arial, Helvetica, sans-serif;
     font-size:medium;
+    color: black;
 }
 
 .rangeValue::before{
@@ -178,58 +209,3 @@ canvas {
     position: relative;
     width: 100%;
 }
-
-
-/* @media screen and (max-width: 1000px) {
-    #video-div{
-        left: 5%;
-    }
-
-    .controls{
-        width: 73%;
-        left: 5%
-    }
-
-   
-
-         
-
-    
-}
-
-@media screen and (max-width: 600px) {
-    .dropdown .option{
-        width: 150%;
-    }
-    
-    .dropdown input{
-        font-size: inherit;
-    }
-  
-    
-}
-
-@media screen and (max-width: 400px) {
-    #video-div{
-        left: 1%;
-    }
-
-    .controls{
-        width: 70%;
-        left: 0
-    }
-
-    .dropdown .option{
-        width: 200%
-    }
-
-    .dropdown{
-        width: 110%;
-        margin-bottom: 50%;
-    }
-
-    
-         
-
-    
-} */

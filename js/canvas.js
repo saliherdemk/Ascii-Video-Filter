@@ -13,25 +13,26 @@ const density = " .,-+:;i1tfLCGO08#@";
 var videoDivWidth = videoDiv.offsetWidth
 var videoDivHeight = videoDiv.offsetHeight
 
-let cnv;
-let video;
-let asciiDiv;
-let shownVideo;
-let asciiWidth;
-let dragging = false;
+var cnv;
+var video;
+var asciiDiv;
+var shownVideo;
+var asciiWidth;
+var dragging = false;
 
 
-let filterMode = "ascii";
-let filterParam = 2;
+var filterMode = "ascii";
+var filterParam = 2;
 
-let camFilter = "none"
-let camFilterParam = 2;
+var camFilter = "none"
+var camFilterParam = 2;
 
-let filteredCanvas;
-let camControl;
+var filteredCanvas;
+var camControl;
 
-let filteredCanvasSliderValue;
+var filteredCanvasSliderValue;
 
+var isFilteredCanvas = 0
 
 function setup() {
 
@@ -92,8 +93,11 @@ function draw() {
     image(shownVideo, 0, 0, width, height);
 
     if (filterMode != "ascii") {
-        drawFilteredCanvas()
-        image(filteredCanvas, 0, 0)
+        if(!isFilteredCanvas){
+            drawFilteredCanvas()
+            image(filteredCanvas, 0, 0)
+
+        }
 
     } else {
         let asciiImage = "";
@@ -144,6 +148,7 @@ function windowResize(){
 
 
 function drawFilteredCanvas() {
+    
     filteredCanvas.image(shownVideo, 0, 0, width, height)
 
     if (filterMode != "ascii") {
@@ -191,7 +196,9 @@ function handleCanvasWValue(type="natural"){
         let newWidth = floor(map(mouseX, 0, videoDivWidth, 0, video.width))
 
         if(newWidth <= 0){
-            console.log(newWidth)
+            asciiWidth = 0
+
+            isFilteredCanvas = 1
             // remove filteredCanvas
             return
         }
@@ -201,6 +208,8 @@ function handleCanvasWValue(type="natural"){
         }
             
         asciiWidth = newWidth
+
+        isFilteredCanvas = 0
     
         //https://stackoverflow.com/questions/47363844/how-do-i-resize-a-p5-graphic-object#:~:text=If%20you%20want%20to%20resize,one%20to%20the%20new%20one.&text=after%20inspecting%20elements%2C%20createGraphics(),just%20set%20to%20be%20invisible.
     

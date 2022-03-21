@@ -15,6 +15,11 @@ const textbox1 = document.getElementById('textBox1');
 const dropdown = document.getElementById('dropdown')
 const dropdown1 = document.getElementById('dropdown1')
 
+const copyTextBtn = document.getElementById("copyText")
+
+const copyAlert = document.querySelector(".copyAlert")
+
+
 dropdown.onclick = function () {
     dropdown.classList.toggle('active')
 }
@@ -28,7 +33,16 @@ function changeFilter(val) {
 
     filterMode = val
 
-    filterMode === "ascii" ? asciiDiv.style("display", "initial") : asciiDiv.style("display", "none")
+
+    if(filterMode === "ascii"){
+        asciiDiv.style("display", "initial")
+        copyTextBtn.style.display = "block"
+
+    } else{
+        asciiDiv.style("display", "none")
+        copyTextBtn.style.display = "none"
+
+    }
 
     if (filterMode === "posterize") {
         rangeSlider.style.visibility = "visible"
@@ -68,6 +82,35 @@ function changeFilterParam() {
 function changeCamFilterParam() {
     camFilterParam = filterParamEl1.value
     rangeValue1.innerHTML = camFilterParam
+
+}
+
+function copyArt(){
+    navigator.clipboard.writeText(asciiDiv.elt.innerText);
+
+
+    copyAlert.style.display = "initial"
+    copyAlert.innerText = "Copied!"
+
+    
+    var counter = 0
+
+    var i = setInterval(function(){
+        if(counter % 2 == 0){
+            copyAlert.style.opacity = 0
+        } else{
+            copyAlert.style.opacity = 1
+
+        }
+
+        if(counter === 3){
+            clearInterval(i)
+        }
+
+        counter++
+    },100)
+
+   
 
 }
 
