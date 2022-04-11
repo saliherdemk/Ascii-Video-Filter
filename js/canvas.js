@@ -2,6 +2,7 @@ const videoDiv = document.getElementById("video-div")
 const controls = document.querySelector(".controls")
 const warning = document.querySelector("h1")
 const filteredCanvasSlider = document.getElementById("filteredCanvasSlider") //.setAttribute("max", 42);
+const videosContainer = document.getElementById("videos-container")
 
 
 const density = " .,-+:;i1tfLCGO08#@";
@@ -34,7 +35,6 @@ var filteredCanvasSliderValue;
 
 var isFilteredCanvas = 0
 
-var videosContainer = document.getElementById("videos-container")
 
 function setup() {
 
@@ -57,9 +57,6 @@ function setup() {
     asciiDiv.style("position", "absolute")
     asciiDiv.style("background-color", "black") //transparent
     asciiDiv.style("z-index", "2")
-    asciiDiv.style("overflow", "hidden")
-    asciiDiv.style("max-width", videosContainer.offsetWidth + "px")
-
 
     shownVideo = createCapture(VIDEO);
     shownVideo.size(width, height)
@@ -197,7 +194,13 @@ function mouseReleased() {
 
 function handleCanvasWValue(type = "natural") {
     if (dragging || type == "force") {
-        let newWidth = floor(map(mouseX, 0, videoDivWidth, 0, video.width))
+        let val;
+        if (mouseX >= videosContainer.offsetWidth) {
+            val = videosContainer.offsetWidth + 8
+        } else {
+            val = mouseX
+        }
+        let newWidth = floor(map(val, 0, videoDivWidth, 0, video.width))
 
         if (newWidth <= 0) {
             asciiWidth = 0
