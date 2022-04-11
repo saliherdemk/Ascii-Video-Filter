@@ -1,7 +1,7 @@
 const videoDiv = document.getElementById("video-div")
 const controls = document.querySelector(".controls")
 const warning = document.querySelector("h1")
-const filteredCanvasSlider =  document.getElementById("filteredCanvasSlider") //.setAttribute("max", 42);
+const filteredCanvasSlider = document.getElementById("filteredCanvasSlider") //.setAttribute("max", 42);
 
 
 const density = " .,-+:;i1tfLCGO08#@";
@@ -34,17 +34,19 @@ var filteredCanvasSliderValue;
 
 var isFilteredCanvas = 0
 
+var videosContainer = document.getElementById("videos-container")
+
 function setup() {
 
-    
+
     video = createCapture(VIDEO);
 
-    cnv = createCanvas(videoDivWidth,videoDivHeight - videoDivHeight / 5) //windowWidth / 2.665, windowHeight / 1.62 + 30
+    cnv = createCanvas(videoDivWidth, videoDivHeight - videoDivHeight / 5) //windowWidth / 2.665, windowHeight / 1.62 + 30
     video.size(videoDivWidth / 4.5, videoDivHeight / 12.5); // windowWidth / x 
     filteredCanvas = createGraphics(videoDivWidth / 2, videoDivHeight - videoDivHeight / 5)
 
-    filteredCanvasSlider.setAttribute("max",videoDivWidth)
-    filteredCanvasSlider.setAttribute("value",videoDivWidth / 2)
+    filteredCanvasSlider.setAttribute("max", videoDivWidth)
+    filteredCanvasSlider.setAttribute("value", videoDivWidth / 2)
 
 
 
@@ -54,7 +56,9 @@ function setup() {
     asciiDiv.parent('videos-container')
     asciiDiv.style("position", "absolute")
     asciiDiv.style("background-color", "black") //transparent
-    asciiDiv.style("z-index","2")
+    asciiDiv.style("z-index", "2")
+    asciiDiv.style("overflow", "hidden")
+    asciiDiv.style("max-width", videosContainer.offsetWidth + "px")
 
 
     shownVideo = createCapture(VIDEO);
@@ -93,7 +97,7 @@ function draw() {
     image(shownVideo, 0, 0, width, height);
 
     if (filterMode != "ascii") {
-        if(!isFilteredCanvas){
+        if (!isFilteredCanvas) {
             drawFilteredCanvas()
             image(filteredCanvas, 0, 0)
 
@@ -116,7 +120,7 @@ function draw() {
             asciiImage += '<br/>';
         }
         asciiDiv.html(asciiImage);
-        
+
     }
 
 
@@ -141,14 +145,14 @@ function draw() {
 
 }
 
-function windowResize(){
+function windowResize() {
     videoDivHeight = videoDiv.offsetHeight
 }
 
 
 
 function drawFilteredCanvas() {
-    
+
     filteredCanvas.image(shownVideo, 0, 0, width, height)
 
     if (filterMode != "ascii") {
@@ -181,7 +185,7 @@ function dist(x1, y1, x2, y2) {
 }
 
 function mousePressed() {
-    
+
     dragging = true
 
 }
@@ -191,33 +195,33 @@ function mouseReleased() {
 }
 
 
-function handleCanvasWValue(type="natural"){
-    if(dragging || type == "force"){
+function handleCanvasWValue(type = "natural") {
+    if (dragging || type == "force") {
         let newWidth = floor(map(mouseX, 0, videoDivWidth, 0, video.width))
 
-        if(newWidth <= 0){
+        if (newWidth <= 0) {
             asciiWidth = 0
 
             isFilteredCanvas = 1
             // remove filteredCanvas
             return
         }
-        if(newWidth > videoDivWidth){
+        if (newWidth > videoDivWidth) {
             asciiWidth = videoDivWidth
             return
         }
-            
+
         asciiWidth = newWidth
 
         isFilteredCanvas = 0
-    
+
         //https://stackoverflow.com/questions/47363844/how-do-i-resize-a-p5-graphic-object#:~:text=If%20you%20want%20to%20resize,one%20to%20the%20new%20one.&text=after%20inspecting%20elements%2C%20createGraphics(),just%20set%20to%20be%20invisible.
-    
-    
+
+
         var newPG = createGraphics(asciiWidth * 4.5, videoDivHeight - videoDivHeight / 5);
         newPG.image(filteredCanvas, 0, 0, newPG.width, newPG.height);
         filteredCanvas.canvas.remove()
-        filteredCanvas = newPG;    
+        filteredCanvas = newPG;
     }
-    
+
 }
