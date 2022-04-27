@@ -17,12 +17,12 @@
     <div class="container">
 
         <h1>Please allow access to your webcam</h1>
-    
+
         <div id="video-div">
             <div class="controls">
-            <button id="copyText" onclick="copyArt()">
-                <span class="copyAlert">Copy</span>
-            </button>
+                <button id="copyText" onclick="copyArt()">
+                    <span class="copyAlert">Copy</span>
+                </button>
 
                 <div class="controlDiv">
                     <div class="dropdown" id="dropdown">
@@ -33,19 +33,19 @@
                             <div onclick="changeFilter('gray')">GRAY</div>
                             <div onclick="changeFilter('invert')">INVERT</div>
                             <div onclick="changeFilter('posterize')">POSTERIZE</div>
-        
+
                         </div>
-        
+
                     </div>
                     <div class="rangeSlider" id="rangeSlider">
                         <span id="rangeValue" class="rangeValue">2</span>
-                        <input onchange="changeFilterParam()" onmousemove="changeFilterParam()" type="range" class="filterParam"
-                            id="filterParam" min="2" value="2" max="10">
-        
+                        <input onchange="changeFilterParam()" onmousemove="changeFilterParam()" type="range"
+                            class="filterParam" id="filterParam" min="2" value="2" max="10">
+
                     </div>
 
                 </div>
-        
+
                 <div class="controlDiv">
                     <div class="dropdown" id="dropdown1">
                         <input type="text" class="textBox" id="textBox1" value="NONE" readonly>
@@ -55,34 +55,36 @@
                             <div onclick="changeDefaultCamFilter('gray')">GRAY</div>
                             <div onclick="changeDefaultCamFilter('invert')">INVERT</div>
                             <div onclick="changeDefaultCamFilter('posterize')">POSTERIZE</div>
-        
+
                         </div>
-        
+
                     </div>
                     <div class="rangeSlider" id="rangeSlider1">
                         <span id="rangeValue1" class="rangeValue">2</span>
-                        <input onchange="changeCamFilterParam()" onmousemove="changeCamFilterParam()" type="range" class="filterParam"
-                            id="filterParam1" min="2" value="2" max="10">
-        
+                        <input onchange="changeCamFilterParam()" onmousemove="changeCamFilterParam()" type="range"
+                            class="filterParam" id="filterParam1" min="2" value="2" max="10">
+
                     </div>
                 </div>
             </div>
 
             <div id="videos-container"></div>
 
-            <input onchange="handleCanvasWValue('force')" onmousemove="handleCanvasWValue()" oninput="handleCanvasWValue()" type="range" class="filterParam"
-                id="filteredCanvasSlider" min="0" value="300" max="600">
+            <input onchange="handleCanvasWValue('force')" onmousemove="handleCanvasWValue()"
+                oninput="handleCanvasWValue()" type="range" class="filterParam" id="filteredCanvasSlider" min="0"
+                value="300" max="600">
 
         </div>
-        
-        
+
+
     </div>
-    
 
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.1/p5.min.js"
+
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.1/p5.min.js"
         integrity="sha512-NxocnqsXP3zm0Xb42zqVMvjQIktKEpTIbCXXyhBPxqGZHqhcOXHs4pXI/GoZ8lE+2NJONRifuBpi9DxC58L0Lw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+    <script src="js/p5.min.js"></script>
     <script src="js/script.js"></script>
     <script src="js/canvas.js"></script>
 

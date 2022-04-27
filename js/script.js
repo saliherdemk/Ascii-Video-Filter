@@ -19,13 +19,25 @@ const copyTextBtn = document.getElementById("copyText")
 
 const copyAlert = document.querySelector(".copyAlert")
 
+const body = document.querySelector("body")
 
-dropdown.onclick = function () {
+
+
+dropdown.onclick = function (e) {
+    e.stopPropagation()
     dropdown.classList.toggle('active')
 }
 
-dropdown1.onclick = function () {
+
+dropdown1.onclick = function (e) {
+    e.stopPropagation();
     dropdown1.classList.toggle('active')
+}
+
+body.onclick = function () {
+    dropdown1.classList.remove('active')
+    dropdown.classList.remove('active')
+
 }
 
 function changeFilter(val) {
@@ -34,11 +46,11 @@ function changeFilter(val) {
     filterMode = val
 
 
-    if(filterMode === "ascii"){
+    if (filterMode === "ascii") {
         asciiDiv.style("display", "initial")
         copyTextBtn.style.display = "block"
 
-    } else{
+    } else {
         asciiDiv.style("display", "none")
         copyTextBtn.style.display = "none"
 
@@ -56,7 +68,6 @@ function changeFilter(val) {
 
 }
 
-
 function changeDefaultCamFilter(val) {
     textbox1.value = val.toUpperCase()
     camFilter = val
@@ -73,45 +84,35 @@ function changeDefaultCamFilter(val) {
 
 }
 
-function changeFilterParam() {
-    filterParam = filterParamEl.value
-    rangeValue.innerHTML = filterParam
-
-}
-
 function changeCamFilterParam() {
     camFilterParam = filterParamEl1.value
     rangeValue1.innerHTML = camFilterParam
 
 }
 
-function copyArt(){
+function copyArt() {
     navigator.clipboard.writeText(asciiDiv.elt.innerText);
 
 
     copyAlert.style.display = "initial"
     copyAlert.innerText = "Copied!"
 
-    
+
     var counter = 0
 
-    var i = setInterval(function(){
-        if(counter % 2 == 0){
+    var i = setInterval(function () {
+        if (counter % 2 == 0) {
             copyAlert.style.opacity = 0
-        } else{
+        } else {
             copyAlert.style.opacity = 1
 
         }
 
-        if(counter === 3){
+        if (counter === 3) {
             clearInterval(i)
         }
 
         counter++
-    },100)
-
-   
+    }, 100)
 
 }
-
-

@@ -4,7 +4,6 @@ const warning = document.querySelector("h1")
 const filteredCanvasSlider = document.getElementById("filteredCanvasSlider") //.setAttribute("max", 42);
 const videosContainer = document.getElementById("videos-container")
 
-
 const density = " .,-+:;i1tfLCGO08#@";
 
 // const density = '       .:-i|=+%O#@'
@@ -35,28 +34,26 @@ var filteredCanvasSliderValue;
 
 var isFilteredCanvas = 0
 
-
 function setup() {
 
 
     video = createCapture(VIDEO);
 
-    cnv = createCanvas(videoDivWidth, videoDivHeight - videoDivHeight / 5) //windowWidth / 2.665, windowHeight / 1.62 + 30
-    video.size(videoDivWidth / 4.5, videoDivHeight / 12.5); // windowWidth / x 
-    filteredCanvas = createGraphics(videoDivWidth / 2, videoDivHeight - videoDivHeight / 5)
+    let h = videoDivHeight - videoDivHeight / 5
+
+    cnv = createCanvas(videoDivWidth, h)
+    video.size(videoDivWidth / 4.5, videoDivHeight / 12.5)
+    filteredCanvas = createGraphics(videoDivWidth / 2, h)
 
     filteredCanvasSlider.setAttribute("max", videoDivWidth)
     filteredCanvasSlider.setAttribute("value", videoDivWidth / 2)
 
-
-
-    //video.size(width / 4.5, height / 10.34)
-
     asciiDiv = createDiv();
     asciiDiv.parent('videos-container')
     asciiDiv.style("position", "absolute")
-    asciiDiv.style("background-color", "black") //transparent
+    asciiDiv.style("background-color", "black")
     asciiDiv.style("z-index", "2")
+    asciiDiv.style("height", h + "px")
 
     shownVideo = createCapture(VIDEO);
     shownVideo.size(width, height)
@@ -66,11 +63,6 @@ function setup() {
     cnv.parent('videos-container')
 
     asciiWidth = video.width / 2
-
-
-    // video.elt.setAttribute('playsinline', '');
-    // shownVideo.elt.setAttribute('playsinline', '');
-
 
 }
 
@@ -88,8 +80,6 @@ function draw() {
         warning.style.display = "none"
 
     }
-
-
 
     image(shownVideo, 0, 0, width, height);
 
@@ -146,8 +136,6 @@ function windowResize() {
     videoDivHeight = videoDiv.offsetHeight
 }
 
-
-
 function drawFilteredCanvas() {
 
     filteredCanvas.image(shownVideo, 0, 0, width, height)
@@ -172,7 +160,6 @@ function drawFilteredCanvas() {
 
 
     }
-
 
 }
 
