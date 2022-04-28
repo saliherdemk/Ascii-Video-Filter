@@ -22,7 +22,6 @@ const copyAlert = document.querySelector(".copyAlert")
 const body = document.querySelector("body")
 
 
-
 dropdown.onclick = function (e) {
     e.stopPropagation()
     dropdown.classList.toggle('active')

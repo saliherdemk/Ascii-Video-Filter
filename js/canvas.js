@@ -6,9 +6,8 @@ const videosContainer = document.getElementById("videos-container")
 
 const density = " .,-+:;i1tfLCGO08#@";
 
-// const density = '       .:-i|=+%O#@'
+// const density = ' .,░▒▓█';
 
-// const density = ' ░▒▓█';
 
 var videoDivWidth = videoDiv.offsetWidth
 var videoDivHeight = videoDiv.offsetHeight
@@ -34,6 +33,9 @@ var filteredCanvasSliderValue;
 
 var isFilteredCanvas = 0
 
+var filteredCanvasForAscii;
+var filteredAsciiCam
+
 function setup() {
 
 
@@ -58,6 +60,9 @@ function setup() {
     shownVideo = createCapture(VIDEO);
     shownVideo.size(width, height)
 
+
+    filteredCanvasForAscii = createGraphics(videoDivWidth / 4.5, videoDivHeight / 12.5)
+
     video.hide()
     shownVideo.hide()
     cnv.parent('videos-container')
@@ -68,11 +73,8 @@ function setup() {
 
 function draw() {
     background(242)
-    filteredCanvas.background(242)
 
-    video.loadPixels();
-
-    if (video.pixels[1] <= 0) {
+    if (video.get(1, 1) <= 0) {
         videoDiv.style.visibility = "hidden"
         warning.style.display = "block"
     } else {
@@ -83,21 +85,50 @@ function draw() {
 
     image(shownVideo, 0, 0, width, height);
 
+    filteredCanvasForAscii.image(video, 0, 0, video.width, video.height)
+
+    if (camFilter != "none") {
+        switch (camFilter) {
+            case "threshold":
+                filter(THRESHOLD)
+                filteredCanvasForAscii.filter(THRESHOLD)
+                break;
+            case "gray":
+                filter(GRAY)
+                filteredCanvasForAscii.filter(GRAY)
+                break;
+            case "invert":
+                filter(INVERT)
+                filteredCanvasForAscii.filter(INVERT)
+                break
+            case "posterize":
+                filter(POSTERIZE, camFilterParam)
+                filteredCanvasForAscii.filter(POSTERIZE, camFilterParam)
+                break;
+            default:
+
+                break;
+        }
+    }
+
+
     if (filterMode != "ascii") {
         if (!isFilteredCanvas) {
             drawFilteredCanvas()
             image(filteredCanvas, 0, 0)
-
         }
 
     } else {
         let asciiImage = "";
-        for (let j = 0; j < video.height; j++) {
-            for (let i = 0; i < asciiWidth; i++) {
-                const pixelIndex = (i + j * video.width) * 4;
-                const r = video.pixels[pixelIndex + 0];
-                const g = video.pixels[pixelIndex + 1];
-                const b = video.pixels[pixelIndex + 2];
+
+        for (let i = 0; i < video.height; i++) {
+            for (let j = 0; j < asciiWidth; j++) {
+                let a = filteredCanvasForAscii.get(j, i)
+
+                const r = a[0];
+                const g = a[1];
+                const b = a[2];
+
                 const avg = Y = 0.2126 * r + 0.7152 * g + 0.0722 * b;
                 const len = density.length;
                 const charIndex = floor(map(avg, 0, 255, 0, len));
@@ -110,30 +141,6 @@ function draw() {
 
     }
 
-
-    if (camFilter != "none") {
-        switch (camFilter) {
-            case "threshold":
-                filter(THRESHOLD)
-                break;
-            case "gray":
-                filter(GRAY)
-                break;
-            case "invert":
-                filter(INVERT)
-                break
-            case "posterize":
-                filter(POSTERIZE, camFilterParam)
-                break;
-            default:
-                break;
-        }
-    }
-
-}
-
-function windowResize() {
-    videoDivHeight = videoDiv.offsetHeight
 }
 
 function drawFilteredCanvas() {
@@ -157,7 +164,6 @@ function drawFilteredCanvas() {
             default:
                 break;
         }
-
 
     }
 
@@ -191,14 +197,14 @@ function handleCanvasWValue(type = "natural") {
 
         if (newWidth <= 0) {
             asciiWidth = 0
-
             isFilteredCanvas = 1
-            // remove filteredCanvas
             return
+
         }
         if (newWidth > videoDivWidth) {
             asciiWidth = videoDivWidth
             return
+
         }
 
         asciiWidth = newWidth
@@ -206,8 +212,6 @@ function handleCanvasWValue(type = "natural") {
         isFilteredCanvas = 0
 
         //https://stackoverflow.com/questions/47363844/how-do-i-resize-a-p5-graphic-object#:~:text=If%20you%20want%20to%20resize,one%20to%20the%20new%20one.&text=after%20inspecting%20elements%2C%20createGraphics(),just%20set%20to%20be%20invisible.
-
-
         var newPG = createGraphics(asciiWidth * 4.5, videoDivHeight - videoDivHeight / 5);
         newPG.image(filteredCanvas, 0, 0, newPG.width, newPG.height);
         filteredCanvas.canvas.remove()
