@@ -36,6 +36,8 @@ var isFilteredCanvas = 0
 var filteredCanvasForAscii;
 var filteredAsciiCam
 
+var asciiTheme = ["black","white"] 
+
 function setup() {
 
 
@@ -53,7 +55,8 @@ function setup() {
     asciiDiv = createDiv();
     asciiDiv.parent('videos-container')
     asciiDiv.style("position", "absolute")
-    asciiDiv.style("background-color", "black")
+    asciiDiv.style("background-color", asciiTheme[0])
+    asciiDiv.style("color", asciiTheme[1])
     asciiDiv.style("z-index", "2")
     asciiDiv.style("height", h + "px")
 

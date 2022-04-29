@@ -20,9 +20,18 @@
 
         <div id="video-div">
             <div class="controls">
-                <button id="copyText" onclick="copyArt()">
-                    <span class="copyAlert">Copy</span>
-                </button>
+                <div class="ascii-controls">
+                    <button id="copyText" onclick="copyArt()">
+                        <span class="copyAlert">Copy</span>
+                    </button>
+    
+                    <div id="changeColor">
+                        <input type="checkbox" class="checkbox" id="chk" />
+                        <label class="label" for="chk">
+                            <div class="ball"></div>
+                        </label>
+                    </div>
+                </div>
 
                 <div class="controlDiv">
                     <div class="dropdown" id="dropdown">
