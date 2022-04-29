@@ -87,38 +87,16 @@ function draw() {
 
     filteredCanvasForAscii.image(video, 0, 0, video.width, video.height)
 
-    if (camFilter != "none") {
-        switch (camFilter) {
-            case "threshold":
-                filter(THRESHOLD)
-                filteredCanvasForAscii.filter(THRESHOLD)
-                break;
-            case "gray":
-                filter(GRAY)
-                filteredCanvasForAscii.filter(GRAY)
-                break;
-            case "invert":
-                filter(INVERT)
-                filteredCanvasForAscii.filter(INVERT)
-                break
-            case "posterize":
-                filter(POSTERIZE, camFilterParam)
-                filteredCanvasForAscii.filter(POSTERIZE, camFilterParam)
-                break;
-            default:
-
-                break;
-        }
-    }
-
 
     if (filterMode != "ascii") {
         if (!isFilteredCanvas) {
             drawFilteredCanvas()
-            image(filteredCanvas, 0, 0)
         }
+        applyFilter(0)
 
     } else {
+        applyFilter(1)
+
         let asciiImage = "";
 
         for (let i = 0; i < video.height; i++) {
@@ -139,6 +117,32 @@ function draw() {
         }
         asciiDiv.html(asciiImage);
 
+    }
+
+}
+
+function applyFilter(changeAsciiSourceFilter) {
+    if (camFilter != "none") {
+        switch (camFilter) {
+            case "threshold":
+                filter(THRESHOLD)
+                changeAsciiSourceFilter ? filteredCanvasForAscii.filter(THRESHOLD) : null
+                break;
+            case "gray":
+                filter(GRAY)
+                changeAsciiSourceFilter ? filteredCanvasForAscii.filter(GRAY) : null
+                break;
+            case "invert":
+                filter(INVERT)
+                changeAsciiSourceFilter ? filteredCanvasForAscii.filter(INVERT) : null
+                break
+            case "posterize":
+                filter(POSTERIZE, camFilterParam)
+                changeAsciiSourceFilter ? filteredCanvasForAscii.filter(POSTERIZE, camFilterParam) : null
+                break;
+            default:
+                break;
+        }
     }
 
 }
@@ -166,6 +170,8 @@ function drawFilteredCanvas() {
         }
 
     }
+    image(filteredCanvas, 0, 0)
+
 
 }
 

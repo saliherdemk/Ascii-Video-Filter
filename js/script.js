@@ -83,6 +83,12 @@ function changeDefaultCamFilter(val) {
 
 }
 
+function changeFilterParam() {
+    filterParam = filterParamEl.value
+    rangeValue.innerHTML = filterParam
+
+}
+
 function changeCamFilterParam() {
     camFilterParam = filterParamEl1.value
     rangeValue1.innerHTML = camFilterParam
